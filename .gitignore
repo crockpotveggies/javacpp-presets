@@ -36,6 +36,8 @@
 /mxnet/target/
 /tensorflow/cppbuild/
 /tensorflow/target/
+/dlib/cppbuild/
+/dlib/target/
 
 # Mac
 .DS_Store

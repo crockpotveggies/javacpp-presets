@@ -57,6 +57,7 @@
     <module>cuda</module>
     <module>mxnet</module>
     <module>tensorflow</module>
+    <module>dlib</module>
   </modules>
 
   <prerequisites>
