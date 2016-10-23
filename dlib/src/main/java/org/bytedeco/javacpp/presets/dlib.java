@@ -3,22 +3,143 @@ package org.bytedeco.javacpp.presets;
 import org.bytedeco.javacpp.annotation.*;
 import org.bytedeco.javacpp.tools.*;
 
-@Properties(target="org.bytedeco.javacpp.dlib", value={@Platform(include="<render_face_detections.h>", link="z@.1"),
-    @Platform(value="windows", link="zdll", preload="zlib1")})
-public class zlib implements InfoMapper {
+/**
+ *
+ * @author Justin Long (crockpotveggies)
+ */
+@Properties(names = {"macosx-x86_64"}, value = {
+    @Platform(include = {
+      // "<algs.h>",
+      "<any.h>",
+      "<array.h>",
+      "<array2d.h>",
+      "<assert.h>",
+      "<base64.h>",
+      "<bayes_utils.h>",
+      "<bigint.h>",
+      "<binary_search_tree.h>",
+      "<bit_stream.h>",
+      "<bound_function_pointer.h>",
+      "<bridge.h>",
+      "<bsp.h>",
+      "<byte_orderer.h>",
+      "<clustering.h>",
+      "<cmd_line_parser.h>",
+      "<compress_stream.h>",
+      "<conditioning_class.h>",
+      "<config.h>",
+      "<config_reader.h>",
+      "<console_progress_indicator.h>",
+      "<control.h>",
+      "<cpp_pretty_printer.h>",
+      "<cpp_tokenizer.h>",
+      "<crc32.h>",
+      "<data_io.h>",
+      "<dir_nav.h>",
+      "<directed_graph.h>",
+      "<disjoint_subsets.h>",
+      "<dnn.h>",
+      "<enable_if.h>",
+      "<entropy_decoder.h>",
+      "<entropy_decoder_model.h>",
+      "<entropy_encoder.h>",
+      "<entropy_encoder_model.h>",
+      // "<error.h>",
+      "<filtering.h>",
+      "<float_details.h>",
+      "<geometry.h>",
+      "<graph.h>",
+      "<graph_cuts.h>",
+      "<graph_utils.h>",
+      "<graph_utils_threaded.h>",
+      "<gui_core.h>",
+      "<gui_widgets.h>",
+      "<hash.h>",
+      "<hash_map.h>",
+      "<hash_set.h>",
+      "<hash_table.h>",
+      "<image_io.h>",
+      "<image_keypoint.h>",
+      "<image_processing.h>",
+      "<image_transforms.h>",
+      "<iosockstream.h>",
+      "<is_kind.h>",
+      "<linker.h>",
+      "<logger.h>",
+      "<lsh.h>",
+      "<lz77_buffer.h>",
+      "<lzp_buffer.h>",
+      "<manifold_regularization.h>",
+      "<map.h>",
+      "<matrix.h>",
+      "<md5.h>",
+      "<member_function_pointer.h>",
+      "<memory_manager.h>",
+      "<memory_manager_global.h>",
+      "<memory_manager_stateless.h>",
+      "<misc_api.h>",
+      "<mlp.h>",
+      "<noncopyable.h>",
+      "<numeric_constants.h>",
+      "<numerical_integration.h>",
+      "<opencv.h>",
+      "<optimization.h>",
+      "<pipe.h>",
+      "<pixel.h>",
+      "<platform.h>",
+      "<python.h>",
+      "<quantum_computing.h>",
+      "<queue.h>",
+      "<rand.h>",
+      "<ref.h>",
+      "<reference_counter.h>",
+      "<revision.h>",
+      "<sequence.h>",
+      "<serialize.h>",
+      "<server.h>",
+      "<set.h>",
+      "<set_utils.h>",
+      "<simd.h>",
+      "<sliding_buffer.h>",
+      "<smart_pointers.h>",
+      "<smart_pointers_thread_safe.h>",
+      "<sockets.h>",
+      "<sockstreambuf.h>",
+      "<sort.h>",
+      "<sparse_vector.h>",
+      "<sqlite.h>",
+      "<stack.h>",
+      "<stack_trace.h>",
+      "<static_map.h>",
+      "<static_set.h>",
+      "<statistics.h>",
+      // "<std_allocator.h>",
+      "<stl_checked.h>",
+      "<string.h>",
+      "<svm.h>",
+      "<svm_threaded.h>",
+      "<sync_extension.h>",
+      "<threads.h>",
+      "<time_this.h>",
+      "<timeout.h>",
+      "<timer.h>",
+      "<timing.h>",
+      "<tokenizer.h>",
+      "<tuple.h>",
+      "<type_safe_union.h>",
+      "<uintn.h>",
+      "<unicode.h>",
+      "<unordered_pair.h>",
+      "<vectorstream.h>",
+      "<windows_magic.h>",
+      "<xml_parser.h>"
+    },
+              includepath = "/usr/local/cuda-8.0/include/", link = "dlib@.19.1", linkpath = "/usr/local/lib/libdlib.dylib"),
+    @Platform(value = "macosx-x86_64",  includepath =  "/usr/local/include/dlib/",
+                                           linkpath = {"/usr/local/lib/libdlib.dylib"}) },
+        target = "org.bytedeco.javacpp.dlib")
+public class dlib implements InfoMapper {
     public void map(InfoMap infoMap) {
-        infoMap.put(new Info("ZEXTERN", "ZEXPORT", "z_const", "zlib_version").cppTypes().annotations())
-               .put(new Info("FAR").cppText("#define FAR"))
-               .put(new Info("OF").cppText("#define OF(args) args"))
-               .put(new Info("Z_ARG").cppText("#define Z_ARG(args) args"))
-               .put(new Info("Byte", "Bytef", "charf").cast().valueTypes("byte").pointerTypes("BytePointer"))
-               .put(new Info("uInt", "uIntf").cast().valueTypes("int").pointerTypes("IntPointer"))
-               .put(new Info("uLong", "uLongf", "z_crc_t", "z_off_t").cast().valueTypes("long").pointerTypes("CLongPointer"))
-               .put(new Info("z_off64_t").cast().valueTypes("long").pointerTypes("LongPointer"))
-               .put(new Info("voidp", "voidpc", "voidpf").valueTypes("Pointer"))
-               .put(new Info("gzFile_s").pointerTypes("gzFile"))
-               .put(new Info("gzFile").valueTypes("gzFile"))
-               .put(new Info("Z_LARGE64", "!defined(ZLIB_INTERNAL) && defined(Z_WANT64)").define(false))
-               .put(new Info("inflateGetDictionary", "gzopen_w", "gzvprintf").skip());
+        infoMap.put(new Info("ZEXTERN", "ZEXPORT", "z_const", "zlib_version").cppTypes().annotations());
     }
 }
