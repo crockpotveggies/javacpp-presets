@@ -16,6 +16,9 @@ cd dlib-$DLIB_VERSION
 
 case $PLATFORM in
     macosx-x86_64)
+        brew install dlib
+        ;;
+    linux)
         cmake -DCMAKE_C_FLAGS_RELEASE=-DNDEBUG -DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG -DDLIB_USE_BLAS=ON -DDLIB_USE_LAPACK=ON -Dcblas_lib=/usr/lib/libcblas.dylib -Dlapack_lib=/usr/lib/liblapack.dylib
         make
         make install
