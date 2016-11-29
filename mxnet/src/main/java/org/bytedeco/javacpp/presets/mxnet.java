@@ -36,12 +36,13 @@ import org.bytedeco.javacpp.tools.InfoMapper;
  *
  * @author Samuel Audet
  */
-@Properties(inherit = {openblas.class, opencv_highgui.class}, target = "org.bytedeco.javacpp.mxnet", value = {
+@Properties(inherit = {openblas.class, opencv_imgcodecs.class, opencv_highgui.class}, target = "org.bytedeco.javacpp.mxnet", value = {
     @Platform(value = {"linux-x86", "macosx"}, compiler = "cpp11", define = {"DMLC_USE_CXX11 1", "MSHADOW_USE_CBLAS 1", "MSHADOW_IN_CXX11 1"},
         include = {"mxnet/c_api.h", "mxnet/c_predict_api.h", /*"dmlc/base.h", "dmlc/io.h", "dmlc/logging.h", "dmlc/type_traits.h",
                    "dmlc/parameter.h", "mshadow/base.h", "mshadow/expression.h", "mshadow/tensor.h", "mxnet/base.h",*/},
         link = "mxnet", includepath = {"/usr/local/cuda/include/",
-        "/System/Library/Frameworks/vecLib.framework/", "/System/Library/Frameworks/Accelerate.framework/"}, linkpath = "/usr/local/cuda/lib/") })
+        "/System/Library/Frameworks/vecLib.framework/", "/System/Library/Frameworks/Accelerate.framework/"}, linkpath = "/usr/local/cuda/lib/"),
+    @Platform(value = "macosx-x86_64", preload = "stdc++@.6", preloadpath = {"/usr/local/lib/", "/usr/local/opt/gcc5/lib/gcc/5/", "/usr/local/opt/gcc/lib/gcc/6/"}) })
 public class mxnet implements InfoMapper {
     public void map(InfoMap infoMap) {
         infoMap.put(new Info("MXNET_EXTERN_C", "MXNET_DLL").cppTypes().annotations())
